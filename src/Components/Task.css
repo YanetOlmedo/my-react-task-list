@@ -1,0 +1,40 @@
+ul {
+    list-style: none;
+    text-align: left;
+    padding: 0;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+  }
+
+  input {
+    height: 1.2em;
+    width: 1.2em;
+  }
+
+  input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px lightblue;
+  }
+
+  .task-container{
+    background-color: #00c8ff19;
+    border-radius: 10px;
+    padding: 4%;
+    margin: 1%;
+    font-size: 1em;
+  }
+
+  .title {
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
+  .custom-checkbox {
+    height: 20px;
+    width: 20px;
+  }
+
+

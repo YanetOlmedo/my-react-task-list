@@ -3,4 +3,27 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+ 
+}
+
+html{
+  background: linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%);
+  min-width: 390px;
+}
+
+.container {
+  margin: auto;
+  padding-top: 5%;
+  border: 1px solid #ccc; 
+  border-radius: 10px;
+  width: 60vw;
+  min-width: 300px;
+  height: 70vh;
+  background-color: rgb(248, 249, 249);
+  overflow: auto;
+}
+
+
+.todo-app {
+  font-size: 1.3rem;
 }

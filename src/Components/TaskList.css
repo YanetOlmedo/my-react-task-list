@@ -1,0 +1,48 @@
+.inputs {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-evenly;
+
+}
+
+.inputs input {
+    width: 40%;
+    min-width: 300px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #92fe9dc4;
+    font-size: 1em;
+    margin: 5px
+}
+
+.pending-tasks {
+    font-size: 1.2em;
+    color: rgb(11, 158, 227);
+    font-weight: bold;
+}
+
+.btn {
+  height: 40px;
+  width: 40px;
+  margin-top: 6px;
+  border-radius: 10px;
+  border-color: #92fe9dc4;
+  background-color: #00c8ffc1;
+  font-size: 1.2em;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-clear button{
+    height: 40px;
+    width: 15%;
+    min-width: 100px;
+    border-radius: 10px;
+    border-color: #92fe9dc4;
+    background-color: #00c8ffc1;
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+}
