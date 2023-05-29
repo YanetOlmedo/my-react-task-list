@@ -3,33 +3,26 @@ import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect } from "react";
 import "./TaskList.css";
 
-//Utilizacion del useState para almacenar las tareas.
-const TaskList = (props) => {
-  const { list } = props;
+const useTaskList = (list) => {
   const [listTask, setListTask] = useState(list);
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
 
-  //Controla la cantidad de tareas pendientes.
   const getPendingTasksCount = () => {
     return listTask.filter((task) => !task.stat).length;
   };
 
-  //Se ejecuta al cambiar de valor el campo de tareas.
   const onChangeTask = (event) => {
     const newTask = event.target.value;
     setTask(newTask);
   };
 
-  //Se ejecuta al cambiar de valor el campo de descripcion
   const onChangeDescription = (event) => {
     const newDescription = event.target.value;
     setDescription(newDescription);
   };
 
-  //Se ejecuta al marcar o desmarcar una tarea como completa.
   const handleTaskCompletion = (name, completed) => {
-    //Se actualiza el estado actual de la tarea
     const updatedListTask = listTask.map((task) => {
       if (task.titleTask === name) {
         return { ...task, stat: completed };
@@ -37,13 +30,11 @@ const TaskList = (props) => {
       return task;
     });
     setListTask(updatedListTask);
-    //Almacena la lista actualizada en el local storage
     localStorage.setItem("listTask", JSON.stringify(updatedListTask));
     console.log(`Task "${name}" completed: ${completed}`);
   };
 
-  // Se ejecuta al agregar una tarea.
-  function handleAddTask() {
+  const handleAddTask = () => {
     if (task.trim() !== "") {
       let newListTask = [...listTask];
       const newAddTask = {
@@ -56,19 +47,15 @@ const TaskList = (props) => {
       setTask("");
       setDescription("");
       setListTask(newListTask);
-      //Almacena la lista actualizada en el local storage
       localStorage.setItem("listTask", JSON.stringify(newListTask));
     }
-  }
+  };
 
-  //Se ejecuta al borrar todas las tareas
-  function handleClear() {
+  const handleClear = () => {
     setListTask([]);
-    //Elimina la lista del local storage
     localStorage.removeItem("listTask");
-  }
+  };
 
-  // Carga la lista de tareas almacenada en el localStorage al cargar el componente
   useEffect(() => {
     const localStorageData = localStorage.getItem("listTask");
     const storedListTask = JSON.parse(localStorageData);
@@ -76,6 +63,33 @@ const TaskList = (props) => {
       setListTask(storedListTask);
     }
   }, []);
+
+  return {
+    listTask,
+    task,
+    description,
+    getPendingTasksCount,
+    onChangeTask,
+    onChangeDescription,
+    handleTaskCompletion,
+    handleAddTask,
+    handleClear,
+  };
+};
+
+const TaskList = (props) => {
+  const { list } = props;
+  const {
+    listTask,
+    task,
+    description,
+    getPendingTasksCount,
+    onChangeTask,
+    onChangeDescription,
+    handleTaskCompletion,
+    handleAddTask,
+    handleClear,
+  } = useTaskList(list);
 
   return (
     <div>
