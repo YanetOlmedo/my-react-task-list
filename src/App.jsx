@@ -1,17 +1,13 @@
 import "./App.css";
-import Header from "./Components/Header";
-import TaskList from "./Components/TaskList";
-
-//Creamos la lista de tareas
-const taskList = [];
+import Menu from "./Components/Menu";
 
 function App() {
   return (
     <div className="container">
       <div className="todo-app">
-        <Header />
+        <Menu />
       </div>
-      <TaskList list={taskList} />
+      
     </div>
   );
 }

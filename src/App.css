@@ -27,3 +27,26 @@ html{
 .todo-app {
   font-size: 1.3rem;
 }
+
+.menu {
+  display: flexbox;
+  flex-direction: row;
+}
+.btn-comenzar a {
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-comenzar {
+  margin: auto;
+  height: 40px;
+  width: 15%;
+  min-width: 100px;
+  border-radius: 10px;
+  border-color: #92fe9dc4;
+  background-color: #00c8ffc1;
+  font-size: 1em;
+  font-weight: bold;
+
+}
