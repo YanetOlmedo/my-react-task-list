@@ -1,7 +1,9 @@
+import { Box, Button, FormControl, FormErrorMessage, Input, Text, UnorderedList } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
+import { Textarea } from "@chakra-ui/react";
 import Task from "./Task";
 import { useForm } from "react-hook-form";
 import { useTaskList } from "./useTaskList";
-import "./TaskList.css";
 
 const TaskList = (props) => {
   const { list } = props;
@@ -21,7 +23,7 @@ const TaskList = (props) => {
     trigger,
     reset,
   } = useForm({
-    mode: "onChange", // Habilita la validación en tiempo real
+    mode: "onChange",
   });
 
   const onSubmit = (data) => {
@@ -29,62 +31,65 @@ const TaskList = (props) => {
     reset();
   };
 
-  //Controla la cantidad de tareas pendientes.
   const getPendingTasksCount = () => {
     return listTask.filter((task) => !task.stat).length;
   };
 
-  // Maneja el cambio en el campo de entrada de la tarea
-  const handleTaskInputChange = (event) => {
-    trigger("task"); // Disparar la validación para el campo "task"
+  const handleTaskInputChange = () => {
+    trigger("task");
   };
 
   return (
-    <div>
+    <Box maxW="40rem" mx="auto" p="1rem"> {/* Ajusta el valor de maxW según el ancho deseado */}
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="inputs">
-          <div className="input-container">
-            <input
-              type="text"
-              placeholder="Add your new todo"
-              {...register("task", {
-                required: "Task name is required",
-                minLength: {
-                  value: 3,
-                  message: "Task name must have at least 3 characters",
-                },
-                validate: {
-                  isEmpty: (value) =>
-                    value.trim() !== "" || "Task name is required",
-                },
-              })}
-              onInput={handleTaskInputChange}
-            />
-            {errors.task && (
-              <span className="error" role="alert">
-                {errors.task.message}
-              </span>
-            )}
-          </div>
-          <div className="input-container">
-            <input
-              type="text"
-              placeholder="Add task's description"
-              {...register("description")}
-            />
-          </div>
-          <button type="submit" className="btn">
-            +
-          </button>
-        </div>
+        <FormControl isInvalid={errors.task} mb={2}>
+          <Input
+            type="text"
+            placeholder="Add your new todo"
+            {...register("task", {
+              required: "Task name is required",
+              minLength: {
+                value: 3,
+                message: "Task name must have at least 3 characters",
+              },
+              validate: {
+                isEmpty: (value) =>
+                  value.trim() !== "" || "Task name is required",
+              },
+            })}
+            onInput={handleTaskInputChange}
+          />
+          <FormErrorMessage>{errors.task && errors.task.message}</FormErrorMessage>
+        </FormControl>
+
+        <FormControl isInvalid={errors.description} mb={2}>
+          <Textarea
+            placeholder="Add task's description (optional)"
+            {...register("description")}
+            resize="vertical"
+            h="6rem"
+          />
+        </FormControl>
+
+        <Box display="flex" alignItems="center" justifyContent="space-between" mb={2}>
+          <Button type="submit" colorScheme="teal" size="sm" width="48%">
+            <AddIcon />
+          </Button>
+          <Button colorScheme="red" size="sm" variant="outline" width="48%" onClick={handleClear}>
+            Clear all
+          </Button>
+        </Box>
       </form>
-      <div className="pending-tasks">
-        <p>You have {getPendingTasksCount()} pending task 😎</p>
-      </div>
-      <div className="btn-clear">
-        <button onClick={handleClear}>Clear all</button>
-      </div>
-      <ul>
+
+      <Text fontSize="1.3rem" color="gray.600" fontWeight="semibold" letterSpacing="wide">
+        You have {getPendingTasksCount()} pending task{getPendingTasksCount() !== 1 ? "s" : ""}
+      </Text>
+
+      <Text fontSize="0.9rem" color="gray.500" mt={2}>
+        Stay productive and keep up the good work! 😊
+      </Text>
+
+      <UnorderedList mt={4} listStyleType="none">
         {listTask.map((task) => (
           <Task
             key={task.id}
@@ -97,10 +102,9 @@ const TaskList = (props) => {
             onTaskDelete={handleTaskDelete}
           />
         ))}
-      </ul>
-    </div>
+      </UnorderedList>
+    </Box>
   );
 };
 
 export default TaskList;
-
