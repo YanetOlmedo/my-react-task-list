@@ -1,5 +1,5 @@
-import { Menu, MenuButton, MenuList, MenuItem, MenuIcon } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import { Flex, Menu, MenuButton, MenuList, MenuItem, IconButton } from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
 import { Link, BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import AboutUs from "../pages/AboutUs";
@@ -7,24 +7,24 @@ import Tasks from "../pages/Tasks";
 
 function NavigationMenu() {
   return (
-    <Menu>
-      <Link to="#">
-        <MenuButton>
-          Menu <ChevronDownIcon />
-        </MenuButton>
-      </Link>
-      <MenuList>
-        <MenuItem as={Link} to="/">
-          Home
-        </MenuItem>
-        <MenuItem as={Link} to="/tasks">
-          Tasks
-        </MenuItem>
-        <MenuItem as={Link} to="/about-us">
-          About Us
-        </MenuItem>
-      </MenuList>
-    </Menu>
+    <Flex justifyContent="flex-start" alignItems="flex-start">
+      <Menu>
+        <Link to="#">
+          <MenuButton as={IconButton} aria-label="Menu" icon={<HamburgerIcon />} variant="ghost" boxSize={6} fontSize="xl"/>
+        </Link>
+        <MenuList>
+          <MenuItem as={Link} to="/">
+            Home
+          </MenuItem>
+          <MenuItem as={Link} to="/tasks">
+            Tasks
+          </MenuItem>
+          <MenuItem as={Link} to="/about-us">
+            About Us
+          </MenuItem>
+        </MenuList>
+      </Menu>
+    </Flex>
   );
 }
 
@@ -43,8 +43,10 @@ function MenuWithRoutes() {
 function MainMenu() {
   return (
     <BrowserRouter>
-      <NavigationMenu />
-      <MenuWithRoutes />
+      <div className="menu-container">
+        <NavigationMenu />
+        <MenuWithRoutes />
+      </div>
     </BrowserRouter>
   );
 }

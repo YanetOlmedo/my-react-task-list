@@ -1,5 +1,4 @@
 import { Box, Button, FormControl, FormErrorMessage, Input, Text, UnorderedList } from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
 import { Textarea } from "@chakra-ui/react";
 import Task from "./Task";
 import { useForm } from "react-hook-form";
@@ -40,7 +39,7 @@ const TaskList = (props) => {
   };
 
   return (
-    <Box maxW="40rem" mx="auto" p="1rem"> {/* Ajusta el valor de maxW según el ancho deseado */}
+    <Box maxW="40rem" mx="auto" p="1rem">
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={errors.task} mb={2}>
           <Input
@@ -73,7 +72,7 @@ const TaskList = (props) => {
 
         <Box display="flex" alignItems="center" justifyContent="space-between" mb={2}>
           <Button type="submit" colorScheme="teal" size="sm" width="48%">
-            <AddIcon />
+            Add task
           </Button>
           <Button colorScheme="red" size="sm" variant="outline" width="48%" onClick={handleClear}>
             Clear all

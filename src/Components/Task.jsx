@@ -72,7 +72,7 @@ export default function Task(props) {
             size="lg"
             style={{ borderColor: 'rgba(0, 0, 0, 0.3)' }}
           />
-          <Text ml="10px" fontWeight="bold">
+          <Text ml="10px" fontWeight="bold" textDecoration={isCompleted ? "line-through" : "none"}>
             {isEditing ? (
               <Input
                 type="text"
