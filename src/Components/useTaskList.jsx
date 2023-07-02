@@ -10,6 +10,7 @@ export const useTaskList = (initialList) => {
     saveTasksToLocalStorage(updatedListTask);
   };
 
+  // Agrega una nueva tarea
   const addTask = (task, description) => {
     if (task.trim() !== "") {
       const newTask = {
@@ -22,6 +23,7 @@ export const useTaskList = (initialList) => {
     }
   };
 
+  // Maneja la finalización de la tarea
   const handleTaskCompletion = (id, completed) => {
     const updatedListTask = listTask.map((task) =>
       task.id === id ? { ...task, stat: completed } : task
@@ -30,6 +32,7 @@ export const useTaskList = (initialList) => {
     console.log(`Task "${id}" completed: ${completed}`);
   };
 
+  // Maneja la edición de la tarea
   const handleTaskEdit = (id, editedTitle, editedDescription) => {
     const updatedListTask = listTask.map((task) =>
       task.id === id
@@ -42,12 +45,14 @@ export const useTaskList = (initialList) => {
     );
   };
 
+  // Maneja la eliminación de la tarea
   const handleTaskDelete = (id) => {
     const updatedListTask = listTask.filter((task) => task.id !== id);
     updateTaskList(updatedListTask);
     console.log(`Task "${id}" deleted`);
   };
 
+  // Elimina todas las tareas
   const handleClear = () => {
     swal({
       title: "Are you sure?",
@@ -67,10 +72,12 @@ export const useTaskList = (initialList) => {
     });
   };
 
+  // Guarda las tareas en el almacenamiento local
   const saveTasksToLocalStorage = (tasks) => {
     localStorage.setItem("listTask", JSON.stringify(tasks));
   };
 
+  // Cargar las tareas desde el almacenamiento local al cargar el componente
   useEffect(() => {
     const localStorageData = localStorage.getItem("listTask");
     const storedListTask = JSON.parse(localStorageData);

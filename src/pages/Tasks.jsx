@@ -4,7 +4,7 @@ import Header from "../Components/Header";
 function Tasks(props) {
   return (
     <div>
-      <Header/>
+      <Header />
       <TaskList list={props.list} />
     </div>
   );

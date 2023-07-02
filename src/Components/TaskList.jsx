@@ -1,10 +1,27 @@
-import { Box, Button, FormControl, FormErrorMessage, Input, Text, UnorderedList } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  FormControl,
+  FormErrorMessage,
+  Input,
+  Text,
+  UnorderedList,
+  useColorMode,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { Textarea } from "@chakra-ui/react";
 import Task from "./Task";
 import { useForm } from "react-hook-form";
 import { useTaskList } from "./useTaskList";
 
 const TaskList = (props) => {
+  const { colorMode } = useColorMode();
+  const textSize = useBreakpointValue({
+    base: "lg",
+    md: "xl",
+    lg: "2xl",
+    xl: "xl",
+  });
   const { list } = props;
   const {
     listTask,
@@ -30,10 +47,12 @@ const TaskList = (props) => {
     reset();
   };
 
+   //Controla la cantidad de tareas pendientes.
   const getPendingTasksCount = () => {
     return listTask.filter((task) => !task.stat).length;
   };
 
+  // Maneja el cambio en el campo de entrada de la tarea
   const handleTaskInputChange = () => {
     trigger("task");
   };
@@ -43,6 +62,8 @@ const TaskList = (props) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={errors.task} mb={2}>
           <Input
+            bg={colorMode === "light" ? "gray.100" : "gray.700"}
+            h="3rem"
             type="text"
             placeholder="Add your new todo"
             {...register("task", {
@@ -58,33 +79,63 @@ const TaskList = (props) => {
             })}
             onInput={handleTaskInputChange}
           />
-          <FormErrorMessage>{errors.task && errors.task.message}</FormErrorMessage>
+          <FormErrorMessage>
+            {errors.task && errors.task.message}
+          </FormErrorMessage>
         </FormControl>
 
         <FormControl isInvalid={errors.description} mb={2}>
           <Textarea
+            bg={colorMode === "light" ? "gray.100" : "gray.700"}
             placeholder="Add task's description (optional)"
             {...register("description")}
             resize="vertical"
-            h="6rem"
+            h="7rem"
           />
         </FormControl>
 
-        <Box display="flex" alignItems="center" justifyContent="space-between" mb={2}>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          mb={2}
+        >
           <Button type="submit" colorScheme="teal" size="sm" width="48%">
             Add task
           </Button>
-          <Button colorScheme="red" size="sm" variant="outline" width="48%" onClick={handleClear}>
+          <Button
+            colorScheme="red"
+            size="sm"
+            variant="outline"
+            width="48%"
+            onClick={handleClear}
+          >
             Clear all
           </Button>
         </Box>
       </form>
 
-      <Text fontSize="1.3rem" color="gray.600" fontWeight="semibold" letterSpacing="wide">
-        You have {getPendingTasksCount()} pending task{getPendingTasksCount() !== 1 ? "s" : ""}
+      <Text
+        fontSize={textSize}
+        color={colorMode === "light" ? "gray.700" : "gray.100"}
+        fontWeight="semibold"
+        letterSpacing="wide"
+      >
+        You have {getPendingTasksCount()} pending task
+        {getPendingTasksCount() !== 1 ? "s" : ""}
       </Text>
 
-      <Text fontSize="0.9rem" color="gray.500" mt={2}>
+      <Text
+        fontSize={useBreakpointValue({
+          base: "md",
+          sm: "sm",
+          md: "md",
+          lg: "md",
+          xl: "md",
+        })}
+        color={colorMode === "light" ? "gray.500" : "gray.200"}
+        mt={2}
+      >
         Stay productive and keep up the good work! 😊
       </Text>
 
